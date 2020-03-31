@@ -26,13 +26,14 @@ public class Translator {
         sql = new String(Pattern.compile("<").matcher(sql).replaceAll(" < "));
         sql = new String(Pattern.compile("<  >").matcher(sql).replaceAll("<>"));
         sql = new String(Pattern.compile("=").matcher(sql).replaceAll(" = "));
-        String[] s = sql.split("[\\s\\n]+");
+        String[] s = sql.split("\\s+");
 
         StringBuilder mongo = new StringBuilder();
         int condition = 1;
         StringBuilder columns = new StringBuilder();
         StringBuilder conditions = new StringBuilder("");
         for (int i = 0; i < s.length; i++) {
+	    if(s[i].equals("")) continue;
             switch (condition) {
                 case 1: {
                     if (s[i].toUpperCase().equals("SELECT")) {
